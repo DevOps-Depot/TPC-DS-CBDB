@@ -51,6 +51,7 @@ else
 fi
 
 rm -f ${TPC_DS_DIR}/log/*single.explain_analyze.log
+set +e
 for i in ${PWD}/*.${BENCH_ROLE}.*.sql; do
   for _ in $(seq 1 ${SINGLE_USER_ITERATIONS}); do
     id=$(echo ${i} | awk -F '.' '{print $1}')
@@ -66,16 +67,24 @@ for i in ${PWD}/*.${BENCH_ROLE}.*.sql; do
         psql -v ON_ERROR_STOP=1 -A -q -t -P pager=off -v EXPLAIN_ANALYZE="" -f ${i} | wc -l
         exit ${PIPESTATUS[0]}
       )
+      if [ $? != 0 ]; then
+        tuples="-1"
+      fi
     else
       myfilename=$(basename ${i})
       mylogfile=${TPC_DS_DIR}/log/${myfilename}.single.explain_analyze.log
       log_time "psql -v ON_ERROR_STOP=1 -A -q -t -P pager=off -v EXPLAIN_ANALYZE=\"EXPLAIN ANALYZE\" -f ${i} > ${mylogfile}"
       psql -v ON_ERROR_STOP=1 -A -q -t -P pager=off -v EXPLAIN_ANALYZE="EXPLAIN ANALYZE" -f ${i} > ${mylogfile}
-      tuples="0"
+      if [ $? != 0 ]; then
+        tuples="-1"
+      else
+        tuples="0"
+      fi
     fi
     print_log ${tuples}
     sleep ${QUERY_INTERVAL}
   done
 done
+set -e
 
 echo "Finished ${step}"
