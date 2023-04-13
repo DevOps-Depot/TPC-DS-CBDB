@@ -51,7 +51,11 @@ else
 fi
 
 rm -f ${TPC_DS_DIR}/log/*single.explain_analyze.log
-set +e
+
+if [ "${ON_ERROR_STOP}" == 0 ]; then
+  set +e
+fi
+
 for i in ${PWD}/*.${BENCH_ROLE}.*.sql; do
   for _ in $(seq 1 ${SINGLE_USER_ITERATIONS}); do
     id=$(echo ${i} | awk -F '.' '{print $1}')
@@ -85,6 +89,5 @@ for i in ${PWD}/*.${BENCH_ROLE}.*.sql; do
     sleep ${QUERY_INTERVAL}
   done
 done
-set -e
 
 echo "Finished ${step}"
