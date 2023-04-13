@@ -60,7 +60,7 @@ FAILD_QUERY=$(psql -v ON_ERROR_STOP=1 -q -t -A -c "select count(*) from tpcds_re
 
 printf "Load (seconds)\t\t\t%d\n" "${LOAD_TIME}"
 printf "Analyze (seconds)\t\t\t%d\n" "${ANALYZE_TIME}"
-printf "1 User Queries (seconds)\t\t%d\n" "${QUERIES_TIME}" "for ${SUCCESS_QUERY} success queries and ${FAILD_QUERY} failed queries"
+printf "1 User Queries (seconds)\t\t%d\tFor %d success queries and %d failed queries\n" "${QUERIES_TIME}" "${SUCCESS_QUERY}" "${FAILD_QUERY}"
 echo ""
 echo "********************************************************************************"
 
