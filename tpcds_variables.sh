@@ -48,6 +48,8 @@ export RUN_SQL="true"
 export RUN_ANALYZE="true"
 #set wait time between each query execution
 export QUERY_INTERVAL="1"
+#Set to 1 if you want to stop when error occurs
+export ON_ERROR_STOP="0"
 
 # step 06_single_user_reports
 export RUN_SINGLE_USER_REPORTS="true"
@@ -71,7 +73,6 @@ export STATEMENT_MEM_MULTI_USER="1GB"
 
 # Set gpfdist location where gpfdist will run p (primary) or m (mirror)
 export GPFDIST_LOCATION="p"
-
 export OSVERSION=$(uname)
 export MASTER_HOST=$(hostname -s)
 export LD_PRELOAD=/lib64/libz.so.1 ps
