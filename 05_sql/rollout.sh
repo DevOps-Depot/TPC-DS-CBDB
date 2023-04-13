@@ -48,6 +48,8 @@ if [ "${RUN_ANALYZE}" == "true" ]; then
   print_log ${tuples}
 else
   echo "AnalyzeDB Skipped..."
+  tuples="-1"
+  print_log ${tuples}
 fi
 
 rm -f ${TPC_DS_DIR}/log/*single.explain_analyze.log
@@ -64,6 +66,7 @@ for i in ${PWD}/*.${BENCH_ROLE}.*.sql; do
     export schema_name
     table_name=$(echo ${i} | awk -F '.' '{print $3}')
     export table_name
+    
     start_log
     if [ "${EXPLAIN_ANALYZE}" == "false" ]; then
       log_time "psql -v ON_ERROR_STOP=1 -A -q -t -P pager=off -v EXPLAIN_ANALYZE=\"\" -f ${i} | wc -l"
