@@ -2,8 +2,10 @@
 set -e
 
 PWD=$(get_pwd ${BASH_SOURCE[0]})
-
 step="compile_tpcds"
+
+log_time "Step ${step} started"
+
 init_log ${step}
 start_log
 schema_name="${SCHEMA_NAME}"
@@ -75,3 +77,4 @@ copy_queries
 print_log
 
 echo "Finished ${step}"
+log_time "Step ${step} finished"
