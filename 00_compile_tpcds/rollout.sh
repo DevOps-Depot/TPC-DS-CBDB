@@ -5,6 +5,7 @@ PWD=$(get_pwd ${BASH_SOURCE[0]})
 step="compile_tpcds"
 
 log_time "Step ${step} started"
+printf "\n"
 
 init_log ${step}
 start_log
@@ -78,3 +79,4 @@ print_log
 
 echo "Finished ${step}"
 log_time "Step ${step} finished"
+printf "\n"

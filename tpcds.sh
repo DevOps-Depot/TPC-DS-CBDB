@@ -13,7 +13,8 @@ source_bashrc
 TPC_DS_DIR=$(get_pwd ${BASH_SOURCE[0]})
 export TPC_DS_DIR
 
-log_time "TPC-DS test started\n"
+log_time "TPC-DS test started"
+printf "\n"
 
 # Check that pertinent variables are set in the variable file.
 check_variables

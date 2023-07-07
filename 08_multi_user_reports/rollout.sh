@@ -4,6 +4,10 @@ set -e
 PWD=$(get_pwd ${BASH_SOURCE[0]})
 step="multi_user_reports"
 
+log_time "Step ${step} started"
+printf "\n"
+
+
 init_log ${step}
 
 get_version
@@ -29,3 +33,5 @@ psql -v ON_ERROR_STOP=1 -P pager=off -f ${PWD}/detailed_report.sql
 echo ""
 
 echo "Finished ${step}"
+log_time "Step ${step} finished"
+printf "\n"

@@ -4,6 +4,10 @@ set -e
 PWD=$(get_pwd ${BASH_SOURCE[0]})
 
 step="ddl"
+
+log_time "Step ${step} started"
+printf "\n"
+
 init_log ${step}
 get_version
 
@@ -117,3 +121,5 @@ psql -v ON_ERROR_STOP=0 -q -P pager=off -c "${SetSearchPath}"
 print_log
 
 echo "Finished ${step}"
+log_time "Step ${step} finished"
+printf "\n"

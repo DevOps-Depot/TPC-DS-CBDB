@@ -4,6 +4,9 @@ set -e
 PWD=$(get_pwd ${BASH_SOURCE[0]})
 
 step="score"
+log_time "Step ${step} started"
+printf "\n"
+
 init_log ${step}
 
 LOAD_TIME=$(psql -v ON_ERROR_STOP=1 -q -t -A -c "select round(sum(extract('epoch' from duration))) from tpcds_reports.load where tuples > 0")
@@ -56,3 +59,5 @@ printf "TLD (hours)\t\t%.3f\n" "${TLD_2_2_0}"
 printf "Score\t\t\t%d\n" "${SCORE_2_2_0}"
 
 echo "Finished ${step}"
+log_time "Step ${step} finished"
+printf "\n"

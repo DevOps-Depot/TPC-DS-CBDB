@@ -65,6 +65,10 @@ function gen_data() {
 }
 
 step="gen_data"
+
+log_time "Step ${step} started"
+printf "\n"
+
 init_log ${step}
 start_log
 schema_name="tpcds"
@@ -103,3 +107,5 @@ ${PWD}/generate_queries.sh
 print_log
 
 echo "Finished ${step}"
+log_time "Step ${step} finished"
+printf "\n"
