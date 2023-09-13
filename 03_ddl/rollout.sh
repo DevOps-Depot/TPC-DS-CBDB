@@ -13,6 +13,12 @@ get_version
 
 filter="gpdb"
 
+if [ "${VERSION}" == "gpdb_5" ]; then
+  distkeyfile="distribution_original.txt"
+else
+  distkeyfile="distribution.txt"
+fi
+
 if [ "${DROP_EXISTING_TABLES}" == "true" ]; then
   #Create tables
   for i in ${PWD}/*.${filter}.*.sql; do
@@ -27,7 +33,7 @@ if [ "${DROP_EXISTING_TABLES}" == "true" ]; then
     if [ "${RANDOM_DISTRIBUTION}" == "true" ]; then
       DISTRIBUTED_BY="DISTRIBUTED RANDOMLY"
     else
-      for z in $(cat ${PWD}/distribution.txt); do
+      for z in $(cat ${PWD}/${distkeyfile}); do
         table_name2=$(echo ${z} | awk -F '|' '{print $2}')
         if [ "${table_name2}" == "${table_name}" ]; then
           distribution=$(echo ${z} | awk -F '|' '{print $3}')
