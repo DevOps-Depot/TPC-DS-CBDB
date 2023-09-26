@@ -31,10 +31,10 @@ if [ "$return_status" -eq "0" ]; then
   print_log ${tuples}
 else
   #get stats on all non-partitioned tables and all partitions
-  if [ "${VERSION}" == "gpdb_5" ] || [ "${VERSION}" == "gpdb_6" ]; then
+  if [ "${VERSION}" == "gpdb_4_3" ] || [ "${VERSION}" == "gpdb_5" ] || [ "${VERSION}" == "gpdb_6" ]; then
     SQL_QUERY_1="SELECT lpad(row_number() over() + $max_id, 3, '0') || '.' || n.nspname || '.' || c.relname FROM pg_class c JOIN pg_namespace n on c.relnamespace = n.oid WHERE n.nspname = 'tpcds' AND c.relname NOT IN (SELECT DISTINCT tablename FROM pg_partitions p WHERE schemaname = 'tpcds') AND c.reltuples::bigint = 0"
     SQL_QUERY_2="SELECT lpad(row_number() over() + $max_id, 3, '0') || '.' || n.nspname || '.' || c.relname FROM pg_class c JOIN pg_namespace n on c.relnamespace = n.oid WHERE n.nspname = 'tpcds' AND c.relname IN (SELECT DISTINCT tablename FROM pg_partitions p WHERE schemaname = 'tpcds') AND c.reltuples::bigint = 0"
- else
+  else
     SQL_QUERY_1="SELECT lpad(row_number() over() + $max_id, 3, '0') || '.' || n.nspname || '.' || c.relname FROM pg_class c JOIN pg_namespace n on c.relnamespace = n.oid WHERE n.nspname = 'tpcds' AND c.oid NOT IN (SELECT partrelid FROM pg_partitioned_table p) AND c.reltuples::bigint = 0"
     SQL_QUERY_2="SELECT lpad(row_number() over() + $max_id, 3, '0') || '.' || n.nspname || '.' || c.relname FROM pg_class c JOIN pg_namespace n on c.relnamespace = n.oid WHERE n.nspname = 'tpcds' AND c.oid IN (SELECT partrelid FROM pg_partitioned_table p) AND c.reltuples::bigint = 0"
   fi
