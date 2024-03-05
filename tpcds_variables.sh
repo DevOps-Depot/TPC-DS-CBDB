@@ -68,6 +68,7 @@ export RUN_SCORE="false"
 export SINGLE_USER_ITERATIONS="1"
 export EXPLAIN_ANALYZE="false"
 export RANDOM_DISTRIBUTION="false"
+export ENABLE_VECTORIZATION="false"
 export STATEMENT_MEM="2GB"
 export STATEMENT_MEM_MULTI_USER="1GB"
 

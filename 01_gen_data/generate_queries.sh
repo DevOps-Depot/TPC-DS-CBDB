@@ -47,7 +47,10 @@ for p in $(seq 1 99); do
 	printf "set optimizer=${optimizer};\n" >> ${TPC_DS_DIR}/05_sql/${filename}
 	printf "set statement_mem=\"${STATEMENT_MEM}\";\n" >> ${TPC_DS_DIR}/05_sql/${filename}
 	printf ":EXPLAIN_ANALYZE\n" >> ${TPC_DS_DIR}/05_sql/${filename}
-	
+
+  if [ "$ENABLE_VECTORIZATION" = "true" ]; then  
+    printf "set vector.enable_vectorization=on;\n" >> ${TPC_DS_DIR}/05_sql/${filename}
+	fi
 	sed -n ${start_position},${end_position}p ${PWD}/query_0.sql >> ${TPC_DS_DIR}/05_sql/${filename}
 	query_id=$((query_id + 1))
 	file_id=$((file_id + 1))
