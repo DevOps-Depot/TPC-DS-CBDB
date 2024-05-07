@@ -48,12 +48,9 @@ function generate_queries() {
     done
 	  printf "set optimizer=${optimizer};\n" >> ${sql_dir}/${filename}
 	  printf "set statement_mem=\"${STATEMENT_MEM_MULTI_USER}\";\n" >> ${sql_dir}/${filename}
-	  printf ":EXPLAIN_ANALYZE\n" >> ${sql_dir}/${filename}
+	  printf "set vector.enable_vectorization=${ENABLE_VECTORIZATION};\n" >> ${sql_dir}/${filename}
+    printf ":EXPLAIN_ANALYZE\n" >> ${sql_dir}/${filename}
 
-    if [ "$ENABLE_VECTORIZATION" = "true" ]; then  
-      printf "set vector.enable_vectorization=on;\n" >> ${sql_dir}/${filename}
-	  fi
-    
     echo "sed -n ${start_position},${end_position}p ${sql_dir}/${tpcds_query_name} >> ${sql_dir}/${filename}"
     sed -n ${start_position},${end_position}p ${sql_dir}/${tpcds_query_name} >> ${sql_dir}/${filename}
     query_id=$((query_id + 1))
@@ -70,7 +67,7 @@ function generate_queries() {
   for z in "${arr[@]}"; do
     myfilename=${sql_dir}/${z}
     echo "myfilename: ${myfilename}"
-    pos=$(grep -n ";" ${myfilename} | awk -F ':' '{ if (NR > 4) print $1}' | head -1)
+    pos=$(grep -n ";" ${myfilename} | awk -F ':' '{ if (NR > 5) print $1}' | head -1)
     pos=$((pos + 1))
     sed -i ${pos}i":EXPLAIN_ANALYZE" ${myfilename}
   done

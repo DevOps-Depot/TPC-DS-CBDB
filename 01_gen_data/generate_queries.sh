@@ -46,12 +46,10 @@ for p in $(seq 1 99); do
     done
 	printf "set optimizer=${optimizer};\n" >> ${TPC_DS_DIR}/05_sql/${filename}
 	printf "set statement_mem=\"${STATEMENT_MEM}\";\n" >> ${TPC_DS_DIR}/05_sql/${filename}
-	printf ":EXPLAIN_ANALYZE\n" >> ${TPC_DS_DIR}/05_sql/${filename}
-
-  if [ "$ENABLE_VECTORIZATION" = "true" ]; then  
-    printf "set vector.enable_vectorization=on;\n" >> ${TPC_DS_DIR}/05_sql/${filename}
-	fi
-	sed -n ${start_position},${end_position}p ${PWD}/query_0.sql >> ${TPC_DS_DIR}/05_sql/${filename}
+  printf "set vector.enable_vectorization=${ENABLE_VECTORIZATION};\n" >> ${sql_dir}/${filename}
+  printf ":EXPLAIN_ANALYZE\n" >> ${TPC_DS_DIR}/05_sql/${filename}
+	
+  sed -n ${start_position},${end_position}p ${PWD}/query_0.sql >> ${TPC_DS_DIR}/05_sql/${filename}
 	query_id=$((query_id + 1))
 	file_id=$((file_id + 1))
 	echo "Completed: ${TPC_DS_DIR}/05_sql/${filename}"
@@ -65,7 +63,7 @@ arr=("114.${BENCH_ROLE}.14.sql" "123.${BENCH_ROLE}.23.sql" "124.${BENCH_ROLE}.24
 for z in "${arr[@]}"; do
 	myfilename=${TPC_DS_DIR}/05_sql/${z}
 	echo "Modifying: ${myfilename}"
-	pos=$(grep -n ";" ${myfilename} | awk -F ':' ' { if (NR > 4) print $1 }' | head -1)
+	pos=$(grep -n ";" ${myfilename} | awk -F ':' ' { if (NR > 5) print $1 }' | head -1)
 	pos=$((pos + 1))
 	sed -i ''${pos}'i\'$'\n'':EXPLAIN_ANALYZE'$'\n' ${myfilename}
 	echo "Modified: ${myfilename}"
