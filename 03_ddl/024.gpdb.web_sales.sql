@@ -34,5 +34,6 @@ CREATE TABLE tpcds.web_sales (
     ws_net_paid_inc_ship_tax numeric(7,2),
     ws_net_profit numeric(7,2)
 )
-WITH (:LARGE_STORAGE)
+USING :ACCESS_METHOD
+WITH (:STORAGE_OPTIONS)
 :DISTRIBUTED_BY;

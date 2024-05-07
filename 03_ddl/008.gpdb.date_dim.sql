@@ -28,5 +28,6 @@ CREATE TABLE tpcds.date_dim (
     d_current_quarter character(1),
     d_current_year character(1)
 )
-WITH (:SMALL_STORAGE)
+USING :ACCESS_METHOD
+WITH (:STORAGE_OPTIONS)
 :DISTRIBUTED_BY;

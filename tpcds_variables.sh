@@ -71,9 +71,14 @@ export RANDOM_DISTRIBUTION="false"
 export ENABLE_VECTORIZATION="false"
 export STATEMENT_MEM="2GB"
 export STATEMENT_MEM_MULTI_USER="1GB"
-
+# Set to heap/ao_row/ao_column/pax for different table format
+export TABLE_ACCESS_METHOD="ao_column"
+# Set different storage options for each access method
+export TABLE_STORAGE_OPTIONS="compresstype=zstd, compresslevel=5, blocksize=1048576"
 # Set gpfdist location where gpfdist will run p (primary) or m (mirror)
 export GPFDIST_LOCATION="p"
 export OSVERSION=$(uname)
+export ADMIN_USER=$(whoami)
+export ADMIN_HOME=$(eval echo ${HOME}/${ADMIN_USER})
 export MASTER_HOST=$(hostname -s)
 export LD_PRELOAD=/lib64/libz.so.1 ps

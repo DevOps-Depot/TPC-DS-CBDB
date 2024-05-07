@@ -5,5 +5,6 @@ CREATE TABLE tpcds.household_demographics (
     hd_dep_count integer,
     hd_vehicle_count integer
 )
-WITH (:SMALL_STORAGE)
+USING :ACCESS_METHOD
+WITH (:STORAGE_OPTIONS)
 :DISTRIBUTED_BY;

@@ -4,5 +4,6 @@ CREATE TABLE tpcds.inventory (
     inv_warehouse_sk integer NOT NULL,
     inv_quantity_on_hand integer
 )
-WITH (:LARGE_STORAGE)
+USING :ACCESS_METHOD
+WITH (:STORAGE_OPTIONS)
 :DISTRIBUTED_BY;

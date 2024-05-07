@@ -22,5 +22,6 @@ CREATE TABLE tpcds.item (
     i_manager_id integer,
     i_product_name character varying(50)
 )
-WITH (:SMALL_STORAGE)
+USING :ACCESS_METHOD
+WITH (:STORAGE_OPTIONS)
 :DISTRIBUTED_BY;

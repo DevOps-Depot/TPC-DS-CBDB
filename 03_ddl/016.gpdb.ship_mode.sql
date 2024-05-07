@@ -6,5 +6,6 @@ CREATE TABLE tpcds.ship_mode (
     sm_carrier character varying(20),
     sm_contract character varying(20)
 )
-WITH (:SMALL_STORAGE)
+USING :ACCESS_METHOD
+WITH (:STORAGE_OPTIONS)
 :DISTRIBUTED_BY;

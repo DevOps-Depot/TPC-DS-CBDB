@@ -24,5 +24,6 @@ CREATE TABLE tpcds.web_returns (
     wr_account_credit numeric(7,2),
     wr_net_loss numeric(7,2)
 )
-WITH (:SMALL_STORAGE)
+USING :ACCESS_METHOD
+WITH (:STORAGE_OPTIONS)
 :DISTRIBUTED_BY;

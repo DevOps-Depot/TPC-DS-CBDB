@@ -31,5 +31,6 @@ CREATE TABLE tpcds.call_center (
     cc_gmt_offset numeric(5,2),
     cc_tax_percentage numeric(5,2)
 )
-WITH (:SMALL_STORAGE)
+USING :ACCESS_METHOD
+WITH (:STORAGE_OPTIONS)
 :DISTRIBUTED_BY;

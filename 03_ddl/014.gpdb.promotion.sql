@@ -19,5 +19,6 @@ CREATE TABLE tpcds.promotion (
     p_purpose character varying(15),
     p_discount_active character(1)
 )
-WITH (:SMALL_STORAGE)
+USING :ACCESS_METHOD
+WITH (:STORAGE_OPTIONS)
 :DISTRIBUTED_BY;

@@ -14,5 +14,6 @@ CREATE TABLE tpcds.warehouse (
     w_country character varying(20),
     w_gmt_offset numeric(5,2)
 )
-WITH (:SMALL_STORAGE)
+USING :ACCESS_METHOD
+WITH (:STORAGE_OPTIONS)
 :DISTRIBUTED_BY;

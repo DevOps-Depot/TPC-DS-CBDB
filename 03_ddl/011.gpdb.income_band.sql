@@ -3,5 +3,6 @@ CREATE TABLE tpcds.income_band (
     ib_lower_bound integer,
     ib_upper_bound integer
 )
-WITH (:SMALL_STORAGE)
+USING :ACCESS_METHOD
+WITH (:STORAGE_OPTIONS)
 :DISTRIBUTED_BY;

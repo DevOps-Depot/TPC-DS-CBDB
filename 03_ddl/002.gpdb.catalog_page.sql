@@ -9,5 +9,6 @@ CREATE TABLE tpcds.catalog_page (
     cp_description character varying(100),
     cp_type character varying(100)
 )
-WITH (:SMALL_STORAGE)
+USING :ACCESS_METHOD
+WITH (:STORAGE_OPTIONS)
 :DISTRIBUTED_BY;

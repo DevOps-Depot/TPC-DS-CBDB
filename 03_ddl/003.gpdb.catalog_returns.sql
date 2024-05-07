@@ -27,5 +27,6 @@ CREATE TABLE tpcds.catalog_returns (
     cr_store_credit numeric(7,2),
     cr_net_loss numeric(7,2)
 )
-WITH (:MEDIUM_STORAGE)
+USING :ACCESS_METHOD
+WITH (:STORAGE_OPTIONS)
 :DISTRIBUTED_BY;
