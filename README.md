@@ -266,10 +266,21 @@ If any above variable is missing or invalid, the script will abort and show the 
 #### Miscellaneous Options
 
 ```shell
-# misc options
-EXPLAIN_ANALYZE="false"
-RANDOM_DISTRIBUTION="false"
-SINGLE_USER_ITERATIONS="1"
+# Misc options
+export SINGLE_USER_ITERATIONS="1"
+export EXPLAIN_ANALYZE="false"
+export RANDOM_DISTRIBUTION="false"
+## Set to on/off to enable vectorization
+export ENABLE_VECTORIZATION="off"
+export STATEMENT_MEM="2GB"
+export STATEMENT_MEM_MULTI_USER="1GB"
+## Set gpfdist location where gpfdist will run p (primary) or m (mirror)
+export GPFDIST_LOCATION="p"
+export OSVERSION=$(uname)
+export ADMIN_USER=$(whoami)
+export ADMIN_HOME=$(eval echo ${HOME}/${ADMIN_USER})
+export MASTER_HOST=$(hostname -s)
+export LD_PRELOAD=/lib64/libz.so.1 ps
 ```
 
 These are miscellaneous controlling variables:
@@ -282,17 +293,24 @@ These are miscellaneous controlling variables:
   This controls how many times the power test will run.
   During the final score computation, the minimal/fastest query elapsed time of multiple runs will be used.
   This can be used to ensure the power test is in a `warm` run environment.
+- `STATEMENT_MEM`: default 2GB which set the `statement_mem` parameter for each statement of single user test. Set with `GB` or `MB`. STATEMENT_MEM should be less than gp_vmem_protect_limit.
+- `STATEMENT_MEM_MULTI_USER`: default 1GB which set the `statement_mem` parameter for each statement of multiple user test. Set with `GB` or `MB`. Please note that, `STATEMENT_MEM_MULTI_USER` * `MULTI_USER_COUNT` should be less than `gp_vmem_protect_limit`.
+- `ENABLE_VECTORIZATION`: set to true to enable vectorization computing for better performance. Feature is suppported as of Lightning 1.5.3. Default is false. Only works for AO with column and PAX table type.
+ 
 
 ### Storage Options
+```shell
+# Storage options
+## Set to heap/ao_row/ao_column/pax for different table format
+export TABLE_ACCESS_METHOD="ao_column"
+## Set different storage options for each access method
+export TABLE_STORAGE_OPTIONS="appendoptimized=true compresstype=zstd, compresslevel=5, blocksize=1048576"
+```
 
-Table storage is defined in `functions.sh` and is configured for optimal performance.
-`get_version()` function defines different storage options for different scale of the benchmark.
-- `SMALL_STORAGE`: All the dimension tables
-- `MEDIUM_STORAGE`: `catalog_returns` and `store_returns`
-- `LARGE_STORAGE`: `catalog_sales`, `inventory`, `store_sales`, and `web_sales`
+- `TABLE_ACCESS_METHOD`: define the table type for the test, available options are HEAP, AO with row, AO with column and PAX (supported as of Lightning 1.5.3).  
+- `TABLE_STORAGE_OPTIONS`: more storage configurations could be defiend, options are different for each table type, refer to docuemntation for more detail.
 
 Table distribution keys are defined in `../03_ddl/distribution.txt`, you can modify tables' distribution keys by changing this file. You can set the distribution method to hash with colunm names or "REPLICATED".
-
 
 ### Execution
 
