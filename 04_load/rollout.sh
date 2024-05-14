@@ -50,7 +50,7 @@ function start_gpfdist() {
     PORT=$((GPFDIST_PORT + flag))
     let flag=$flag+1
     echo "ssh -n -f ${EXT_HOST} \"bash -c 'cd ~${ADMIN_USER}; ./start_gpfdist.sh $PORT ${GEN_DATA_PATH}'\""
-    ssh -n -f ${EXT_HOST} "bash -c 'cd ~${ADMIN_USER}; ./start_gpfdist.sh $PORT ${GEN_DATA_PATH}'" &
+    ssh -n ${EXT_HOST} "bash -c 'cd ~${ADMIN_USER}; ./start_gpfdist.sh $PORT ${GEN_DATA_PATH}'" &
   done
   wait
 }
@@ -59,7 +59,7 @@ copy_script
 start_gpfdist
 
 # need to wait for all the gpfdist processes to start
-sleep 10
+# sleep 10
 
 for i in ${PWD}/*.${filter}.*.sql; do
   start_log
