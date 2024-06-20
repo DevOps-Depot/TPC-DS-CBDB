@@ -69,6 +69,8 @@ if [ "${ON_ERROR_STOP}" == 0 ]; then
   set +e
 fi
 
+PWD=${TPC_DS_DIR}/05_sql
+
 for i in ${PWD}/*.${BENCH_ROLE}.*.sql; do
   for _ in $(seq 1 ${SINGLE_USER_ITERATIONS}); do
     id=$(echo ${i} | awk -F '.' '{print $1}')
