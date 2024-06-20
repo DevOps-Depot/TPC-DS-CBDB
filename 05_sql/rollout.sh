@@ -102,7 +102,10 @@ for i in ${PWD}/*.${BENCH_ROLE}.*.sql; do
       fi
     fi
     print_log ${tuples}
-    sleep ${QUERY_INTERVAL}
+    
+    if [[ "${QUERY_INTERVAL}" -ne 0 ]]; then
+      sleep ${QUERY_INTERVAL}
+    fi
   done
 done
 
