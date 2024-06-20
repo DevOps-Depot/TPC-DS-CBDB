@@ -25,7 +25,7 @@ function copy_script() {
 function stop_gpfdist() {
   echo "stop gpfdist on all ports"
   for i in $(cat ${TPC_DS_DIR}/segment_hosts.txt); do
-    ssh -n -f $i "bash -c 'cd ~/; ./stop_gpfdist.sh'" &
+    ssh -n $i "bash -c 'cd ~/; ./stop_gpfdist.sh'" &
   done
   wait
 }
