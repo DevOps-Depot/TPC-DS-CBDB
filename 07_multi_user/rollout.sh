@@ -8,6 +8,16 @@ step="multi_user"
 log_time "Step ${step} started"
 printf "\n"
 
+# define data loding log file
+LOG_FILE="${TPC_DS_DIR}/log/rollout_load.log"
+
+# get the Load Test End timestamp from the log file for RNGSEED
+if [[ -f "$LOG_FILE" ]]; then
+  RNGSEED=$(tail -n 1 "$LOG_FILE" | cut -d '|' -f 6)
+else
+  RNGSEED=12345
+fi
+
 if [ "${MULTI_USER_COUNT}" -eq "0" ]; then
   echo "MULTI_USER_COUNT set at 0 so exiting..."
   exit 0
@@ -48,8 +58,8 @@ function generate_templates() {
   #Create queries
   echo "cd ${PWD}"
   cd ${PWD}
-  log_time "${PWD}/dsqgen -streams ${MULTI_USER_COUNT} -input ${PWD}/query_templates/templates.lst -directory ${PWD}/query_templates -dialect hashdata -scale ${GEN_DATA_SCALE} -verbose y -output ${PWD}"
-  ${PWD}/dsqgen -streams ${MULTI_USER_COUNT} -input ${PWD}/query_templates/templates.lst -directory ${PWD}/query_templates -dialect hashdata -scale ${GEN_DATA_SCALE} -verbose y -output ${PWD}
+  log_time "${PWD}/dsqgen -streams ${MULTI_USER_COUNT} -input ${PWD}/query_templates/templates.lst -directory ${PWD}/query_templates -dialect hashdata -scale ${GEN_DATA_SCALE} -RNGSEED ${RNGSEED} -verbose y -output ${PWD}"
+  ${PWD}/dsqgen -streams ${MULTI_USER_COUNT} -input ${PWD}/query_templates/templates.lst -directory ${PWD}/query_templates -dialect hashdata -scale ${GEN_DATA_SCALE} -RNGSEED ${RNGSEED} -verbose y -output ${PWD}
 
   #move the query_x.sql file to the correct session directory
   for i in ${PWD}/query_*.sql; do
