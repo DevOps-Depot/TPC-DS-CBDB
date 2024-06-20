@@ -4,7 +4,7 @@ export BENCH_ROLE="dsbench"
 export SCHEMA_NAME="tpcds"
 export GREENPLUM_PATH=$GPHOME/greenplum_path.sh
 ## Set chip type to arm or x86 to avoid compiling TPC-DS tools from source code.
-export CHIP_TYPE="arm"
+export CHIP_TYPE="x86"
  
 ## Default port used is configed via env setting of $PGPORT for user $ADMIN_USER
 ## Confige the port to connect for miltiuser test if you want to use connection pools.
