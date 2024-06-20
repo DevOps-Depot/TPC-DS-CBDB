@@ -77,6 +77,5 @@ copy_tpc
 copy_queries
 print_log
 
-echo "Finished ${step}"
 log_time "Step ${step} finished"
 printf "\n"

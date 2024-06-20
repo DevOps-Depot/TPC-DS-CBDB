@@ -103,6 +103,5 @@ fi
 
 print_log
 
-echo "Finished ${step}"
 log_time "Step ${step} finished"
 printf "\n"
