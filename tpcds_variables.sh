@@ -4,7 +4,7 @@ export BENCH_ROLE="dsbench"
 export SCHEMA_NAME="tpcds"
 export GREENPLUM_PATH=$GPHOME/greenplum_path.sh
 ## Set chip type to arm or x86 to avoid compiling TPC-DS tools from source code.
-export CHIP_TYPE="arm"
+export CHIP_TYPE="x86"
  
 ## Default port used is configed via env setting of $PGPORT for user $ADMIN_USER
 ## Confige the port to connect for miltiuser test if you want to use connection pools.
@@ -47,8 +47,9 @@ export RUN_LOAD="true"
 ## step 05_sql
 export RUN_SQL="true"
 export RUN_ANALYZE="true"
+export RUN_QGEN="true"
 ## set wait time between each query execution
-export QUERY_INTERVAL="1"
+export QUERY_INTERVAL="0"
 ## Set to 1 if you want to stop when error occurs
 export ON_ERROR_STOP="0"
 
@@ -57,7 +58,7 @@ export RUN_SINGLE_USER_REPORTS="true"
 
 ## step 07_multi_user
 export RUN_MULTI_USER="false"
-export RUN_QGEN="true"
+export RUN_MULTI_USER_QGEN="true"
 
 ## step 08_multi_user_reports
 export RUN_MULTI_USER_REPORTS="false"

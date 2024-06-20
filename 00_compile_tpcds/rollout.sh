@@ -25,9 +25,9 @@ function make_tpc() {
 }
 
 function copy_tpc() {
-  cp ${PWD}/tools/dsqgen ../*_gen_data/
+  cp ${PWD}/tools/dsqgen ../*_sql/
   cp ${PWD}/tools/dsqgen ../*_multi_user/
-  cp ${PWD}/tools/tpcds.idx ../*_gen_data/
+  cp ${PWD}/tools/tpcds.idx ../*_sql/
   cp ${PWD}/tools/tpcds.idx ../*_multi_user/
 
   #copy the compiled dsdgen program to the segment nodes
@@ -39,9 +39,9 @@ function copy_tpc() {
 }
 
 function copy_queries() {
-  rm -rf ${TPC_DS_DIR}/*_gen_data/query_templates
+  rm -rf ${TPC_DS_DIR}/*_sql/query_templates
   rm -rf ${TPC_DS_DIR}/*_multi_user/query_templates
-  cp -R query_templates ${TPC_DS_DIR}/*_gen_data/
+  cp -R query_templates ${TPC_DS_DIR}/*_sql/
   cp -R query_templates ${TPC_DS_DIR}/*_multi_user/
 }
 

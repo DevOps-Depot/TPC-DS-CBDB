@@ -14,10 +14,22 @@ if [ "${GEN_DATA_SCALE}" == "" ] || [ "${BENCH_ROLE}" == "" ]; then
   exit 1
 fi
 
+#!/bin/bash
+
+# define data loding log file
+LOG_FILE="${TPC_DS_DIR}/log/rollout_load.log"
+
+# get the Load Test End timestamp from the log file for RNGSEED
+if [[ -f "$LOG_FILE" ]]; then
+  RNGSEED=$(tail -n 1 "$LOG_FILE" | cut -d '|' -f 6)
+else
+  RNGSEED=12345
+fi
+
 rm -f ${PWD}/query_0.sql
 
-echo "${PWD}/dsqgen -input ${PWD}/query_templates/templates.lst -directory ${PWD}/query_templates -dialect hashdata -scale ${GEN_DATA_SCALE} -verbose y -output ${PWD}"
-${PWD}/dsqgen -input ${PWD}/query_templates/templates.lst -directory ${PWD}/query_templates -dialect hashdata -scale ${GEN_DATA_SCALE} -verbose y -output ${PWD}
+log_time "${PWD}/dsqgen -input ${PWD}/query_templates/templates.lst -directory ${PWD}/query_templates -dialect hashdata -scale ${GEN_DATA_SCALE} -RNGSEED ${RNGSEED} -verbose y -output ${PWD}"
+${PWD}/dsqgen -input ${PWD}/query_templates/templates.lst -directory ${PWD}/query_templates -dialect hashdata -scale ${GEN_DATA_SCALE} -RNGSEED ${RNGSEED} -verbose y -output ${PWD}
 
 rm -f ${TPC_DS_DIR}/05_sql/*.${BENCH_ROLE}.*.sql*
 
@@ -35,7 +47,7 @@ for p in $(seq 1 99); do
     fi
   done
 
-	echo "Creating: ${TPC_DS_DIR}/05_sql/${filename}"
+	log_time "Creating: ${TPC_DS_DIR}/05_sql/${filename}"
 	printf "set role ${BENCH_ROLE};\nset search_path=${SCHEMA_NAME},public;\n" > ${TPC_DS_DIR}/05_sql/${filename}
 
 	for o in $(cat ${TPC_DS_DIR}/01_gen_data/optimizer.txt); do
@@ -69,4 +81,4 @@ for z in "${arr[@]}"; do
 	echo "Modified: ${myfilename}"
 done
 
-echo "COMPLETE: dsqgen scale ${GEN_DATA_SCALE}"
+log_time "COMPLETE: dsqgen scale ${GEN_DATA_SCALE} with RNGSEED ${RNGSEED}"

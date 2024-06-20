@@ -11,6 +11,14 @@ printf "\n"
 init_log ${step}
 get_version
 
+
+if [ "${RUN_QGEN}" == true ]; then
+  log_time "Generate queries based on scale"
+  cd ${PWD}
+  ${PWD}/generate_queries.sh
+  log_time "Finished generate queries based on scale"
+fi
+
 start_log
 
 schema_name=${SCHEMA_NAME}
@@ -92,10 +100,12 @@ for i in ${PWD}/*.${BENCH_ROLE}.*.sql; do
       fi
     fi
     print_log ${tuples}
-    sleep ${QUERY_INTERVAL}
+    
+    if [[ "${QUERY_INTERVAL}" -ne 0 ]]; then
+      sleep ${QUERY_INTERVAL}
+    fi
   done
 done
 
-echo "Finished ${step}"
 log_time "Step ${step} finished"
 printf "\n"
