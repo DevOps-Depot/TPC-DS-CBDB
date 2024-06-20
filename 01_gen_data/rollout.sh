@@ -101,10 +101,6 @@ if [ "${GEN_NEW_DATA}" == "true" ]; then
   echo ""
 fi
 
-echo "Generate queries based on scale"
-cd ${PWD}
-${PWD}/generate_queries.sh
-
 print_log
 
 echo "Finished ${step}"

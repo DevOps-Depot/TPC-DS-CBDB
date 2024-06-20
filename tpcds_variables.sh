@@ -27,6 +27,7 @@ export RUN_COMPILE_TPCDS="true"
 # should true under normal circumstances
 export RUN_GEN_DATA="true"
 export GEN_NEW_DATA="true"
+export GEN_QUERY="true"
 
 ## step 02_init
 export RUN_INIT="true"

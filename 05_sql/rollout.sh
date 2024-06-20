@@ -11,6 +11,14 @@ printf "\n"
 init_log ${step}
 get_version
 
+
+if [ "${GEN_QUERY}" == true ]; then
+  log_time "Generate queries based on scale"
+  cd ${TPC_DS_DIR}/01_gen_data/
+  ${TPC_DS_DIR}/01_gen_data/generate_queries.sh
+  log_time "Finished generate queries based on scale"
+fi
+
 start_log
 
 schema_name=${SCHEMA_NAME}
@@ -96,6 +104,5 @@ for i in ${PWD}/*.${BENCH_ROLE}.*.sql; do
   done
 done
 
-echo "Finished ${step}"
 log_time "Step ${step} finished"
 printf "\n"
