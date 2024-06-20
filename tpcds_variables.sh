@@ -27,7 +27,6 @@ export RUN_COMPILE_TPCDS="true"
 # should true under normal circumstances
 export RUN_GEN_DATA="true"
 export GEN_NEW_DATA="true"
-export GEN_QUERY="true"
 
 ## step 02_init
 export RUN_INIT="true"
@@ -48,6 +47,7 @@ export RUN_LOAD="true"
 ## step 05_sql
 export RUN_SQL="true"
 export RUN_ANALYZE="true"
+export RUN_QGEN="true"
 ## set wait time between each query execution
 export QUERY_INTERVAL="0"
 ## Set to 1 if you want to stop when error occurs
@@ -58,7 +58,7 @@ export RUN_SINGLE_USER_REPORTS="true"
 
 ## step 07_multi_user
 export RUN_MULTI_USER="false"
-export RUN_QGEN="true"
+export RUN_MULTI_USER_QGEN="true"
 
 ## step 08_multi_user_reports
 export RUN_MULTI_USER_REPORTS="false"

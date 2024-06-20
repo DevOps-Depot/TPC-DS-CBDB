@@ -12,10 +12,10 @@ init_log ${step}
 get_version
 
 
-if [ "${GEN_QUERY}" == true ]; then
+if [ "${RUN_QGEN}" == true ]; then
   log_time "Generate queries based on scale"
-  cd ${TPC_DS_DIR}/01_gen_data/
-  ${TPC_DS_DIR}/01_gen_data/generate_queries.sh
+  cd ${PWD}
+  ${PWD}/generate_queries.sh
   log_time "Finished generate queries based on scale"
 fi
 
@@ -68,8 +68,6 @@ rm -f ${TPC_DS_DIR}/log/*single.explain_analyze.log
 if [ "${ON_ERROR_STOP}" == 0 ]; then
   set +e
 fi
-
-PWD=${TPC_DS_DIR}/05_sql
 
 for i in ${PWD}/*.${BENCH_ROLE}.*.sql; do
   for _ in $(seq 1 ${SINGLE_USER_ITERATIONS}); do

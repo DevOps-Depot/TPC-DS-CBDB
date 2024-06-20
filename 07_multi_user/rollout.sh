@@ -73,7 +73,7 @@ function generate_templates() {
   done
 }
 
-if [ "${RUN_QGEN}" = "true" ]; then
+if [ "${RUN_MULTI_USER_QGEN}" = "true" ]; then
   generate_templates
 fi
 
