@@ -49,7 +49,7 @@ function start_gpfdist() {
     GEN_DATA_PATH="${GEN_DATA_PATH}/dsbenchmark"
     PORT=$((GPFDIST_PORT + flag))
     let flag=$flag+1
-    echo "ssh -n -f ${EXT_HOST} \"bash -c 'cd ~${ADMIN_USER}; ./start_gpfdist.sh $PORT ${GEN_DATA_PATH}'\""
+    echo "ssh -n ${EXT_HOST} \"bash -c 'cd ~${ADMIN_USER}; ./start_gpfdist.sh $PORT ${GEN_DATA_PATH}'\""
     ssh -n ${EXT_HOST} "bash -c 'cd ~${ADMIN_USER}; ./start_gpfdist.sh $PORT ${GEN_DATA_PATH}'" &
   done
   wait
